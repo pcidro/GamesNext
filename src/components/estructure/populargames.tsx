@@ -1,0 +1,47 @@
+"use client";
+
+import { GameResponse } from "@/types/game-type";
+import Image from "next/image";
+import Link from "next/link";
+
+export default function Populargames({
+  populargames,
+}: {
+  populargames: GameResponse;
+}) {
+  return (
+    <>
+      <ul className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6 list-none">
+        {populargames.results.map((game) => (
+          <li
+            key={game.id}
+            className="group relative overflow-hidden rounded-2xl aspect-3/4 cursor-pointer bg-[#1a1a2e] shadow-[0_4px_15px_rgba(0,0,0,0.5)] transition-all duration-300 hover:-translate-y-1"
+          >
+            <div className="relative h-full w-full">
+              <Image
+                src={game.background_image}
+                alt={game.name}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </div>
+
+            <div className="absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black/90 via-black/50 to-transparent p-5">
+              <h3 className="text-lg font-semibold text-white transition-opacity duration-300 group-hover:opacity-0">
+                {game.name}
+              </h3>
+
+              <Link
+                href={`/game/${game.id}`}
+                className="absolute bottom-7 left-8 rounded-lg bg-[#00ff7f] px-4 py-2 font-medium text-white opacity-0 transition-all duration-300 group-hover:opacity-100 cursor-pointer hover:bg-green-300"
+              >
+                Ver detalhes
+              </Link>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
