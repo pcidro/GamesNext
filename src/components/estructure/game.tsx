@@ -9,10 +9,34 @@ import { Session } from "next-auth";
 interface gameProps {
   game: Game;
   session: Session | null;
+  isFavorited: boolean;
 }
 
-export default function GamePage({ game, session }: gameProps) {
-  const [isSaved, setIsSaved] = useState(false);
+export default function GamePage({ game, session, isFavorited }: gameProps) {
+  const [isSaved, setIsSaved] = useState(isFavorited);
+
+  async function addFavoriteGame() {
+    const res = await fetch("/api/favorites", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        externalId: game.id,
+        name: game.name,
+        coverUrl: game.background_image,
+        slug: game.slug,
+      }),
+    });
+    if (res.ok) {
+      setIsSaved(true);
+    }
+  }
+
+  async function removeFavoriteGame() {
+    const res = await fetch(`/api/favorites/${game.id}`, { method: "DELETE" });
+    if (res.ok) setIsSaved(false);
+  }
 
   return (
     <div>
@@ -134,11 +158,17 @@ export default function GamePage({ game, session }: gameProps) {
                 {session?.user ? (
                   <>
                     {isSaved ? (
-                      <button className="rounded-md bg-red-600 px-7 py-3 text-sm font-semibold uppercase tracking-wide transition hover:-translate-y-0.5 hover:bg-red-500 hover:shadow-lg hover:shadow-red-500/30">
+                      <button
+                        onClick={removeFavoriteGame}
+                        className="rounded-md bg-red-600 px-7 py-3 text-sm font-semibold uppercase tracking-wide transition hover:-translate-y-0.5 hover:bg-red-500 hover:shadow-lg hover:shadow-red-500/30"
+                      >
                         Remover dos meus jogos
                       </button>
                     ) : (
-                      <button className="rounded-md bg-emerald-400 px-7 py-3 text-sm font-semibold uppercase tracking-wide text-black transition hover:-translate-y-0.5 hover:bg-emerald-300 hover:shadow-lg hover:shadow-emerald-400/30">
+                      <button
+                        onClick={addFavoriteGame}
+                        className="rounded-md bg-emerald-400 px-7 py-3 text-sm font-semibold uppercase tracking-wide text-black transition hover:-translate-y-0.5 hover:bg-emerald-300 hover:shadow-lg hover:shadow-emerald-400/30"
+                      >
                         Adicionar aos meus jogos
                       </button>
                     )}
