@@ -23,9 +23,23 @@ export default async function GameDetails({ params }: PageProps) {
     where: { userId: session.user.id, game: { externalId: Number(id) } },
   });
 
+  const rating = await prisma.rating.findFirst({
+    where: {
+      userId: session.user.id,
+      game: {
+        externalId: Number(id),
+      },
+    },
+  });
+
   return (
     <div>
-      <GamePage session={session} game={game} isFavorited={!!favorite} />
+      <GamePage
+        session={session}
+        game={game}
+        isFavorited={!!favorite}
+        rating={rating?.score ?? null}
+      />
     </div>
   );
 }

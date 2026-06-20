@@ -5,15 +5,26 @@ import Link from "next/link";
 import { Game } from "@/types/game-type";
 import { useState } from "react";
 import { Session } from "next-auth";
+import { ModalRating } from "../layout/modalrating";
+import RatingStars from "../layout/stars";
 
 interface gameProps {
   game: Game;
   session: Session | null;
   isFavorited: boolean;
+  rating: number | null;
 }
 
-export default function GamePage({ game, session, isFavorited }: gameProps) {
+export default function GamePage({
+  game,
+  session,
+  isFavorited,
+  rating,
+}: gameProps) {
   const [isSaved, setIsSaved] = useState(isFavorited);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userRating, setUserRating] = useState<number | null>(rating);
+  const [error, setError] = useState(false);
 
   async function addFavoriteGame() {
     const res = await fetch("/api/favorites", {
@@ -30,12 +41,39 @@ export default function GamePage({ game, session, isFavorited }: gameProps) {
     });
     if (res.ok) {
       setIsSaved(true);
+      setUserRating(userRating);
     }
   }
 
   async function removeFavoriteGame() {
     const res = await fetch(`/api/favorites/${game.id}`, { method: "DELETE" });
     if (res.ok) setIsSaved(false);
+  }
+
+  async function handleRating() {
+    if (userRating === null) {
+      setError(true);
+      return;
+    }
+
+    const res = await fetch("/api/rate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: game.name,
+        score: userRating,
+        externalId: game.id,
+        coverUrl: game.background_image,
+        slug: game.slug,
+      }),
+    });
+    if (res.ok) {
+      setIsModalOpen(false);
+    }
+    const data = await res.json();
+    console.log(data);
   }
 
   return (
@@ -100,7 +138,7 @@ export default function GamePage({ game, session, isFavorited }: gameProps) {
                   <div className="flex items-baseline gap-1.5">
                     <span className="text-2xl text-emerald-400">★</span>
 
-                    <span className="text-3xl font-bold">5</span>
+                    <span className="text-3xl font-bold">{userRating}</span>
 
                     <span className="text-zinc-400">/5</span>
                   </div>
@@ -173,9 +211,23 @@ export default function GamePage({ game, session, isFavorited }: gameProps) {
                       </button>
                     )}
 
-                    <button className="rounded-md border border-white/20 bg-white/10 px-7 py-3 text-sm font-semibold uppercase tracking-wide transition hover:-translate-y-0.5 hover:bg-white/15">
+                    <button
+                      onClick={() => setIsModalOpen(true)}
+                      className="rounded-md border border-white/20 bg-white/10 px-7 py-3 text-sm font-semibold uppercase tracking-wide transition hover:-translate-y-0.5 hover:bg-white/15"
+                    >
                       Rankear jogo
                     </button>
+                    <ModalRating
+                      handleRating={handleRating}
+                      isOpen={isModalOpen}
+                      error={error}
+                      onClose={() => setIsModalOpen(false)}
+                    >
+                      <RatingStars
+                        value={userRating}
+                        onChange={setUserRating}
+                      />
+                    </ModalRating>
                   </>
                 ) : (
                   <p className="text-sm leading-6 text-zinc-300">
