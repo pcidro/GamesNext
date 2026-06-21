@@ -3,6 +3,7 @@
 import { FavoriteType } from "@/types/favorite-type";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface favoriteProps {
@@ -10,6 +11,7 @@ interface favoriteProps {
 }
 
 export default function Favoritegames({ favorites }: favoriteProps) {
+  const router = useRouter();
   const [searchGame, setSearchGame] = useState("");
 
   const filteredGames = favorites.filter((favorite) => {
@@ -18,6 +20,13 @@ export default function Favoritegames({ favorites }: favoriteProps) {
       .trim()
       .includes(searchGame.toLowerCase().trim());
   });
+
+  async function handleRemoveFavorite(favoritoId: number) {
+    await fetch(`/api/favorites/${favoritoId}`, {
+      method: "DELETE",
+    });
+    router.refresh();
+  }
 
   return (
     <section className="min-h-scree px-4 py-10 text-white md:px-8">
@@ -104,6 +113,9 @@ export default function Favoritegames({ favorites }: favoriteProps) {
                     </Link>
 
                     <button
+                      onClick={() =>
+                        handleRemoveFavorite(favorite.game.externalId)
+                      }
                       type="button"
                       className="rounded-md border border-[#00ff7f]/50 bg-transparent px-4 py-2.5 text-sm font-semibold text-white transition hover:border-white hover:bg-white hover:text-black"
                     >

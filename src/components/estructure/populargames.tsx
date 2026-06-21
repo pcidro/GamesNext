@@ -11,7 +11,7 @@ export default function Populargames({
 }) {
   return (
     <>
-      <ul className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6 list-none">
+      <ul className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-2 md:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] md:gap-6 list-none">
         {populargames.results.map((game) => (
           <li
             key={game.id}

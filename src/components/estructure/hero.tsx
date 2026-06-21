@@ -3,15 +3,12 @@ export default function Hero() {
     <section className="relative isolate min-h-[calc(100svh-5rem)] w-full overflow-hidden bg-zinc-950 font-body text-white">
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-20 bg-[url('/img/hero.png')] bg-cover bg-position-[68%_center] sm:bg-position-[72%_center] lg:bg-position-[center_center]"
+        className="hidden md:block absolute inset-0 -z-20 bg-[url('/img/hero.png')] bg-cover bg-position-[68%_center] sm:bg-position-[72%_center] lg:bg-position-[center_center]"
       />
+
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(5,6,10,0.98)_0%,rgba(5,6,10,0.92)_30%,rgba(5,6,10,0.58)_52%,rgba(5,6,10,0.1)_72%,rgba(5,6,10,0)_100%)]"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(9,9,11,0.36)_0%,rgba(9,9,11,0)_32%,rgba(9,9,11,0.5)_100%)] lg:bg-none"
+        className="block absolute top-0 left-0 w-full h-full z-0 md:hidden  inset-0 -z-20 bg-[url('/img/heromobile.png')] bg-cover bg-position-[68%_center] sm:bg-position-[72%_center] lg:bg-position-[center_center]"
       />
 
       <div className="mx-auto flex min-h-[calc(100svh-5rem)] w-full max-w-300 items-center px-6 py-20 sm:px-8 lg:px-10">

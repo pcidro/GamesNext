@@ -15,22 +15,23 @@ export default async function GameDetails({ params }: PageProps) {
   const game: Game = await getGameById(id);
   const session = await getServerSession(authOptions);
 
-  if (!session) {
-    return;
-  }
+  let favorite = null;
+  let rating = null;
 
-  const favorite = await prisma.favorite.findFirst({
-    where: { userId: session.user.id, game: { externalId: Number(id) } },
-  });
+  if (session) {
+    favorite = await prisma.favorite.findFirst({
+      where: { userId: session.user.id, game: { externalId: Number(id) } },
+    });
 
-  const rating = await prisma.rating.findFirst({
-    where: {
-      userId: session.user.id,
-      game: {
-        externalId: Number(id),
+    rating = await prisma.rating.findFirst({
+      where: {
+        userId: session.user.id,
+        game: {
+          externalId: Number(id),
+        },
       },
-    },
-  });
+    });
+  }
 
   return (
     <div>
