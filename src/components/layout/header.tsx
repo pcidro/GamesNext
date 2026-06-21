@@ -2,11 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { ChangeEvent } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { Heart, LogIn, LogOut } from "lucide-react";
+import Input from "./input";
+import { SearchContext } from "@/context/searchContext";
 
 export default function Header() {
   const { status } = useSession();
+  const { search, setSearch, setQuery } = SearchContext();
   const isAuthenticated = status === "authenticated";
 
   return (
@@ -18,13 +22,23 @@ export default function Header() {
         >
           <Image
             src="/img/logo.png"
-            alt="GamesDB"
+            alt="GamesNext"
             width={128}
             height={128}
             priority
             className="absolute left-1/2 top-1/2 h-32 w-32 max-w-none -translate-x-1/2 -translate-y-1/2 object-contain"
           />
         </Link>
+
+        <div className="w-full max-w-sm flex items-center">
+          <Input
+            value={search}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setSearch(e.target.value)
+            }
+            placeholder="Digite um jogo..."
+          />
+        </div>
 
         <nav className="flex items-center gap-2">
           {!isAuthenticated ? (

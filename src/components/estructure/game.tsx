@@ -81,14 +81,15 @@ export default function GamePage({
       <section className="relative min-h-screen bg-zinc-950 text-white">
         {/* Background */}
         <div className="absolute inset-0 overflow-hidden">
-          <Image
-            src={game.background_image}
-            alt={game.name}
-            fill
-            className="object-cover object-center"
-            priority
-          />
-
+          {game.background_image && (
+            <Image
+              src={game.background_image}
+              alt={game.name}
+              fill
+              className="object-cover object-center"
+              priority
+            />
+          )}
           <div className="absolute inset-0 bg-linear-to-b from-zinc-950/30 to-zinc-950/80" />
         </div>
 

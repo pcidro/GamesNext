@@ -3,6 +3,7 @@ import { Poppins, Manrope } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/providers/authprovider";
 import Header from "@/components/layout/header";
+import { SearchProvider } from "@/context/searchContext";
 
 export const poppins = Poppins({
   subsets: ["latin"],
@@ -29,8 +30,10 @@ export default function RootLayout({
     <html lang="pt-br" className={`${poppins.variable} ${manrope.variable}`}>
       <body className="bg-zinc-900">
         <AuthProvider>
-          <Header />
-          {children}
+          <SearchProvider>
+            <Header />
+            {children}
+          </SearchProvider>
         </AuthProvider>
       </body>
     </html>
