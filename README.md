@@ -1,6 +1,6 @@
 # Games Next
 
-Aplicacao web para descobrir jogos, consultar detalhes, favoritar titulos e registrar avaliacões pessoais.
+Aplicação web para descobrir jogos, consultar detalhes, favoritar titulos e registrar avaliacões pessoais.
 
 Deploy: [https://games-next-theta.vercel.app/](https://games-next-theta.vercel.app/)
 
