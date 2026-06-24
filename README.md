@@ -23,9 +23,7 @@ Usuários autenticados com Google podem salvar jogos em uma lista de favoritos e
 - Lista privada de favoritos para usuários autenticados.
 
   -Adição e remoção de jogos favoritos.
-
--Filtro local dentro da página de favoritos.
-
+  
 - Sistema de avaliação pessoal com modal e estrelas de 0 a 5.
 
 - Persistência de usuários, sessões, favoritos, jogos e avaliações com Prisma e PostgreSQL.
