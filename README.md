@@ -15,11 +15,14 @@ Usuários autenticados com Google podem salvar jogos em uma lista de favoritos e
 - Home com hero visual, seção de jogos populares e seção de próximos lançamentos.
 
 - Busca de jogos por nome usando a API RAWG.
-  Página de detalhes para cada jogo, com imagem, descrição, gêneros, lançamento, desenvolvedor e rating.
-  Login com Google via NextAuth.
+
+  -Página de detalhes para cada jogo, com imagem, descrição, gêneros, lançamento, desenvolvedor e rating.
+  
+  -Login com Google via NextAuth.
 
 - Lista privada de favoritos para usuários autenticados.
-  Adição e remoção de jogos favoritos.
+
+  -Adição e remoção de jogos favoritos.
 
 -Filtro local dentro da página de favoritos.
 
@@ -28,6 +31,8 @@ Usuários autenticados com Google podem salvar jogos em uma lista de favoritos e
 - Persistência de usuários, sessões, favoritos, jogos e avaliações com Prisma e PostgreSQL.
 
 - Layout responsivo com cabeçalho adaptado para desktop e mobile.
+
+
 
 ## Stack tecnica
 
