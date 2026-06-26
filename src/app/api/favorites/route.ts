@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   const game = await prisma.game.upsert({
     where: { externalId },
     update: {},
-    create: { externalId, name, coverUrl, slug, genres },
+    create: { externalId, name, coverUrl, slug, genres: genres || null },
   });
 
   const existing = await prisma.favorite.findUnique({
