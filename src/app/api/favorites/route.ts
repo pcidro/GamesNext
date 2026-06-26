@@ -9,12 +9,12 @@ export async function POST(req: Request) {
     return Response.json({ error: "Not Authorized" }, { status: 401 });
   }
 
-  const { externalId, name, coverUrl, slug } = await req.json();
+  const { externalId, name, coverUrl, slug, genres = [] } = await req.json();
 
   const game = await prisma.game.upsert({
     where: { externalId },
     update: {},
-    create: { externalId, name, coverUrl, slug },
+    create: { externalId, name, coverUrl, slug, genres },
   });
 
   const existing = await prisma.favorite.findUnique({

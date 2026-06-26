@@ -64,6 +64,7 @@ model Game{
   externalId Int @unique 
   name String
   coverUrl String?
+  genres Json
   slug String
   @@map("game")
     favorite Favorite[]

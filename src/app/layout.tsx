@@ -4,6 +4,7 @@ import "./globals.css";
 import AuthProvider from "@/providers/authprovider";
 import Header from "@/components/layout/header";
 import { SearchProvider } from "@/context/searchContext";
+import Footer from "@/components/layout/footer";
 
 export const poppins = Poppins({
   subsets: ["latin"],
@@ -31,8 +32,11 @@ export default function RootLayout({
       <body className="bg-black">
         <AuthProvider>
           <SearchProvider>
-            <Header />
-            {children}
+            <div className="min-h-screen flex flex-col">
+              <Header />
+              <main className="flex-1 w-full">{children}</main>
+              <Footer />
+            </div>
           </SearchProvider>
         </AuthProvider>
       </body>
