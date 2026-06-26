@@ -1,6 +1,6 @@
 # Games Next
 
-Aplicacao web para descobrir jogos, consultar detalhes, favoritar titulos e registrar avaliacões pessoais.
+Aplicação web para descobrir jogos, consultar detalhes, favoritar titulos e registrar avaliacões pessoais.
 
 Deploy: [https://games-next-theta.vercel.app/](https://games-next-theta.vercel.app/)
 
@@ -12,22 +12,25 @@ Usuários autenticados com Google podem salvar jogos em uma lista de favoritos e
 
 ## Principais features
 
-- Home com hero visual, seção de jogos populares e seção de próximos lançamentos.
+ Home com hero visual, seção de jogos populares e seção de próximos lançamentos.
 
-- Busca de jogos por nome usando a API RAWG.
-  Página de detalhes para cada jogo, com imagem, descrição, gêneros, lançamento, desenvolvedor e rating.
-  Login com Google via NextAuth.
+Busca de jogos por nome usando a API RAWG.
 
-- Lista privada de favoritos para usuários autenticados.
-  Adição e remoção de jogos favoritos.
+Página de detalhes para cada jogo, com imagem, descrição, gêneros, lançamento, desenvolvedor e rating.
+  
+Login com Google via NextAuth.
 
--Filtro local dentro da página de favoritos.
+Lista privada de favoritos para usuários autenticados.
 
-- Sistema de avaliação pessoal com modal e estrelas de 0 a 5.
+Adição e remoção de jogos favoritos.
+  
+  Sistema de avaliação pessoal com modal e estrelas de 0 a 5.
 
-- Persistência de usuários, sessões, favoritos, jogos e avaliações com Prisma e PostgreSQL.
+ Persistência de usuários, sessões, favoritos, jogos e avaliações com Prisma e PostgreSQL.
 
-- Layout responsivo com cabeçalho adaptado para desktop e mobile.
+Layout responsivo com cabeçalho adaptado para desktop e mobile.
+
+
 
 ## Stack tecnica
 
