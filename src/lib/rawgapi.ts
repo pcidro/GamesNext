@@ -1,3 +1,4 @@
+"use server";
 const apiKey = process.env.API_KEY;
 
 export async function getPopularGames() {
@@ -69,6 +70,27 @@ export async function getGame(query: string) {
     }
     const data = await response.json();
     return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getGamesFiltered(
+  search?: string,
+  genre?: string,
+  platform?: string,
+) {
+  const apiKey = process.env.API_KEY;
+  let url = `https://api.rawg.io/api/games?key=${apiKey}`;
+
+  if (search) url += `&search=${search}`;
+  if (genre) url += `&genres=${genre}`;
+  if (platform) url += `&parent_platforms=${platform}`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Erro ao buscar jogos filtrados");
+    return await response.json();
   } catch (error) {
     console.error(error);
   }
